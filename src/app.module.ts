@@ -16,7 +16,6 @@ import { TasksModule } from './controllers/tasks/tasks.module';
       inject: [ConfigService],
       useFactory: async (configService: ConfigService) => {
         const isProduction = configService.get('STAGE') === 'prod';
-
         return {
           ssl: isProduction,
           extra: {
