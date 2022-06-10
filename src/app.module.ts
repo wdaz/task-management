@@ -19,7 +19,7 @@ import { TasksModule } from './controllers/tasks/tasks.module';
         return {
           ssl: isProduction,
           extra: {
-            ssl: isProduction ? { rejectUnauthorized: true } : null,
+            ssl: isProduction ? { rejectUnauthorized: false } : null,
           },
           type: 'postgres',
           autoLoadEntities: true,
