@@ -18,6 +18,7 @@ import {
 
 import {
   ApiBadRequestResponse,
+  ApiBearerAuth,
   ApiBody,
   ApiCreatedResponse,
   ApiNotFoundResponse,
@@ -32,6 +33,7 @@ import { AuthGuard } from '@nestjs/passport';
 import { GetUser } from '../auth/get-user.decorator';
 
 @ApiTags('Tasks')
+@ApiBearerAuth()
 @UseGuards(AuthGuard())
 @Controller('tasks')
 export class TasksController {

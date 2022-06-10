@@ -9,6 +9,7 @@ services:
     environment:
       POSTGRES_USER: user
       POSTGRES_PASSWORD: admin
+      POSTGRES_DB: task-management
   pgadmin:
     image: dpage/pgadmin4
     container_name: pgadmin4_container
