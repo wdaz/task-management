@@ -1,3 +1,4 @@
+import { JwtAuthGuard } from './../../guards/auth/jwt-auth.guard';
 import { User } from './../auth/user.entity';
 import { Task } from './task.entity';
 import { GetTaskFilterDto } from './dto/get-task-filter.dto';
@@ -29,20 +30,21 @@ import {
 } from '@nestjs/swagger';
 import { DefaultException } from './dto/exception.dto';
 import { TaskStatus } from './task-status.enum';
-import { AuthGuard } from '@nestjs/passport';
 import { GetUser } from '../auth/get-user.decorator';
+import { Public } from 'src/guards/auth/jwt-auth.guard';
 
 @ApiTags('Tasks')
 @ApiBearerAuth()
-@UseGuards(AuthGuard())
+@UseGuards(JwtAuthGuard)
 @Controller('tasks')
 export class TasksController {
-  constructor(private taskService: TasksService) {}
+  constructor(private taskService: TasksService) { }
 
   @Get()
   @ApiOperation({ summary: 'Get tasks' })
   @ApiResponse({ status: 200, type: [Task], description: 'List of tasks' })
   @ApiQuery({ name: 'status', enum: TaskStatus, required: false })
+  @Public()
   getTasks(
     @Query() filterDto: GetTaskFilterDto,
     @GetUser() user: User,

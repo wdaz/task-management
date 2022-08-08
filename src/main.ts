@@ -7,6 +7,7 @@ import 'reflect-metadata';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  app.setGlobalPrefix('/api')
 
   const config = new DocumentBuilder()
     .addBearerAuth()
@@ -20,7 +21,15 @@ async function bootstrap() {
 
   app.useGlobalPipes(new ValidationPipe());
   app.useGlobalInterceptors(new TransformInterceptor());
+  app.enableCors({
+    origin: '*',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    preflightContinue: false,
+    optionsSuccessStatus: 204
+  });
   const port = process.env.PORT;
-  await app.listen(port);
+  await app.listen(port, () => {
+
+  });
 }
 bootstrap();
